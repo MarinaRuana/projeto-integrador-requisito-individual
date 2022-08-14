@@ -37,7 +37,16 @@ class CartImpServiceTest {
     IBatchStockRepo batchStockRepo;
 
     @Mock
+    PurchaseRepo purchaseRepo;
+
+    @Mock
     BuyerRepo buyerRepo;
+
+    @Mock
+    IProductRepo productRepo;
+
+    @Mock
+    ISectorRepo sectorRepo;
 
     @BeforeEach
     public void setup(){}
