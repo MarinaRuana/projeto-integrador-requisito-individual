@@ -50,7 +50,7 @@ class InBoundOrderImpServiceTest {
         BDDMockito.when(productRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProductWhitId()));
         BDDMockito.when(batchStockRepo.findById(ArgumentMatchers.anyLong()))
-                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getBatchStock()));
+                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getBatchStockAndSectorWithCapacity()));
         BDDMockito.when(sectorRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(TestUtilsGenerator.getSector()));
 
@@ -111,7 +111,7 @@ class InBoundOrderImpServiceTest {
         BDDMockito.when(productRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProductWhitId()));
         BDDMockito.when(batchStockRepo.findById(ArgumentMatchers.anyLong()))
-                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getBatchStock()));
+                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getBatchStockAndSectorWithCapacity()));
         BDDMockito.when(sectorRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(TestUtilsGenerator.getSector()));
 

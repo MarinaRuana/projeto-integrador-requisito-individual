@@ -1,22 +1,22 @@
 version: "3.8"
 services:
-#  ml-fulfillment:
-#    build: .
-#    restart: always
-#    env_file: .env
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - app-db-network
-#    environment:
-#      - spring.datasource.username=root
-#      - spring.datasource.password=root
-#      - spring.datasource.url=jdbc:mysql://mysqldb:3306/ml-fulfillment-fresh?useTimezone=true&serverTimezone=UTC
-#      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
-#      - spring.jpa.show-sql=true
-#      - spring.jpa.hibernate.ddl-auto=update
-#    depends_on:
-#      - mysqldb
+  ml-fulfillment:
+    build: .
+    restart: always
+    env_file: .env
+    ports:
+      - "8080:8080"
+    networks:
+      - app-db-network
+    environment:
+      - spring.datasource.username=root
+      - spring.datasource.password=root
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/ml-fulfillment-fresh?useTimezone=true&serverTimezone=UTC
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+      - spring.jpa.show-sql=true
+      - spring.jpa.hibernate.ddl-auto=update
+    depends_on:
+      - mysqldb
 
   mysqldb:
     image: "mysql:5.7"
@@ -27,7 +27,7 @@ services:
       MYSQL_DATABASE: ${MYSQLDB_DATABASE}
       MYSQL_USER: ${MYSQLDB_USER}
     ports:
-      - "3306:3306"
+      - "3307:3306"
     networks:
       - app-db-network
 

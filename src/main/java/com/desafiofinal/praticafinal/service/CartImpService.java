@@ -1,6 +1,7 @@
 package com.desafiofinal.praticafinal.service;
 
 import com.desafiofinal.praticafinal.exception.ElementAlreadyExistsException;
+import com.desafiofinal.praticafinal.exception.ElementNotFoundException;
 import com.desafiofinal.praticafinal.exception.ExceededCapacityException;
 import com.desafiofinal.praticafinal.model.*;
 import com.desafiofinal.praticafinal.repository.*;
@@ -40,7 +41,7 @@ public class CartImpService implements ICartService {
         Buyer foundBuyer = verifyBuyer(cart.getBuyer());
         cart.setBuyer(foundBuyer);
 
-        List<Purchase> foundPurchaseList = verifyCartBatchStock(cart.getListPurchase(), cart);
+        List<Purchase> foundPurchaseList = verifyPurchase(cart.getListPurchase(), cart);
         cart.setListPurchase(foundPurchaseList);
 
         double totalPrice = getTotalPrice(cart);
@@ -53,8 +54,12 @@ public class CartImpService implements ICartService {
     }
 
     @Override
-    public List<BatchStock> getProducts(long purchaseId){ //purchase = cartId
-        Optional <Cart> foundCart = cartRepo.findById(purchaseId);
+    public List<BatchStock> getProducts(long cartId){ //purchase = cartId
+        Optional <Cart> foundCart = cartRepo.findById(cartId);
+
+        if(foundCart.isEmpty()){
+            throw new ElementNotFoundException("Cart does not exists");
+        }
         List<BatchStock> batchStockList = new ArrayList<>();
 
         for (Purchase purchase : foundCart.get().getListPurchase()){
@@ -85,12 +90,10 @@ public class CartImpService implements ICartService {
         Optional<Buyer> foundBuyer =  buyerRepo.findById(buyer.getBuyerId());
         if(foundBuyer.isPresent()) {
             return foundBuyer.get();
-        }else{
-            throw new ElementAlreadyExistsException("Buyer does not exists");
-        }
+        }else{ throw new ElementNotFoundException("Buyer does not exists"); }
     }
 
-    private List<Purchase> verifyCartBatchStock(List<Purchase> purchaseList, Cart cart)  {
+    private List<Purchase> verifyPurchase(List<Purchase> purchaseList, Cart cart)  {
         List<Purchase> purchaseListVerified = new ArrayList<>();
         for(Purchase cbs : purchaseList) {
             BatchStock foundBatchStock = verifyBatchStock(cbs.getBatchStock());
@@ -106,17 +109,15 @@ public class CartImpService implements ICartService {
         Optional<BatchStock> foundBatchStock = batchStockRepo.findById(batchStock.getBatchId());
         if (foundBatchStock.isPresent()) {
             return foundBatchStock.get();
-        } else {
-            throw new ElementAlreadyExistsException("Batch stock does not exist");
-        }
+        } else { throw new ElementNotFoundException("Batch stock does not exist"); }
     }
 
-    private Optional<Cart> verifyIfCartExists(long purchaseId) {
-        Optional <Cart> foundCart = cartRepo.findById(purchaseId);
+    private Optional<Cart> verifyIfCartExists(long cartId) {
+        Optional <Cart> foundCart = cartRepo.findById(cartId);
         List<BatchStock> batchStockList = new ArrayList<>();
 
         if(foundCart.isEmpty()){
-            throw new ElementAlreadyExistsException("Cart does not exist");
+            throw new ElementNotFoundException("Cart does not exist");
         }else{
             verifyStatus(foundCart, batchStockList);
         }

@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long cartBatchStockId;
+    private long purchaseId;
 
     @ManyToOne
     @JoinColumn(name = "id_cart")

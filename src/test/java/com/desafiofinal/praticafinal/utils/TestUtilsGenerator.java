@@ -32,10 +32,12 @@ public class TestUtilsGenerator {
     }
 
 
-    public static BatchStock getBatchStock(){
+    public static BatchStock getBatchStockAndSectorWithCapacity(){
         Product product = getProductWhitId();
+        Sector sector = getSector();
         InBoundOrder inBoundOrder = new InBoundOrder();
         inBoundOrder.setOrderId(1L);
+        inBoundOrder.setSector(sector);
 
         return BatchStock.builder()
                 .batchId(1L)
@@ -43,6 +45,26 @@ public class TestUtilsGenerator {
                 .currentTemperature(1F)
                 .minimumTemperature(1F)
                 .initialQuantity(1)
+                .currentQuantity(10)
+                .manufacturingDate(LocalDate.parse("2023-01-01"))
+                .dueDate(LocalDate.parse("2023-01-01"))
+                .inBoundOrder(inBoundOrder)
+                .build();
+    }
+    public static BatchStock getBatchStockWithoutCapacity(){
+        Product product = getProductWhitId();
+        Sector sector = getSectorWithoutCapacity();
+        InBoundOrder inBoundOrder = new InBoundOrder();
+        inBoundOrder.setOrderId(1L);
+        inBoundOrder.setSector(sector);
+
+        return BatchStock.builder()
+                .batchId(1L)
+                .product(product)
+                .currentTemperature(1F)
+                .minimumTemperature(1F)
+                .initialQuantity(1)
+                .currentQuantity(10)
                 .manufacturingDate(LocalDate.parse("2023-01-01"))
                 .dueDate(LocalDate.parse("2023-01-01"))
                 .inBoundOrder(inBoundOrder)
@@ -67,10 +89,10 @@ public class TestUtilsGenerator {
     }
 
     public static List<BatchStock> getBatchStockList() {
-        BatchStock batchStock = getBatchStock();
-        BatchStock batchStock1 = getBatchStock();
+        BatchStock batchStock = getBatchStockAndSectorWithCapacity();
+        BatchStock batchStock1 = getBatchStockAndSectorWithCapacity();
         batchStock1.setBatchId(2L);
-        BatchStock batchStock2 = getBatchStock();
+        BatchStock batchStock2 = getBatchStockAndSectorWithCapacity();
         batchStock2.setBatchId(3L);
 
         List<BatchStock> batchStockList = new ArrayList<>();
@@ -106,7 +128,122 @@ public class TestUtilsGenerator {
                 .sectorId(1L)
                 .category("FF")
                 .capacity(1.0)
-                .maxCapacity(10.0)
+                .maxCapacity(100.0)
+                .build();
+    }
+
+    public static Sector getSectorWithoutCapacity(){
+        return Sector.builder()
+                .sectorId(1L)
+                .category("FF")
+                .capacity(1.0)
+                .maxCapacity(0.0)
+                .build();
+    }
+
+    public static Purchase getPurchase(){
+        return Purchase.builder()
+                .purchaseId(1L)
+                .batchStock(getBatchStockAndSectorWithCapacity())
+                .pricePerProduct(1)
+                .productQuantity(1)
+                .build();
+    }
+
+    public static Purchase getPurchaseWithQuantityUnavailable(){
+        return Purchase.builder()
+                .purchaseId(1L)
+                .batchStock(getBatchStockAndSectorWithCapacity())
+                .pricePerProduct(1)
+                .productQuantity(20)
+                .build();
+    }
+
+    public static List<Purchase> getPurchaseList(){
+        List<Purchase> purchaseList = new ArrayList<>();
+        purchaseList.add(getPurchase());
+        return purchaseList;
+    }
+
+    public static List<Purchase> getPurchaseWithoutCapacity(){
+        Purchase purchase = getPurchase();
+        purchase.setBatchStock(getBatchStockWithoutCapacity());
+        List<Purchase> purchaseList = new ArrayList<>();
+        purchaseList.add(purchase);
+        return purchaseList;
+    }
+
+    public static List<Purchase> getPurchaseWhitQuantityUnavailable(){
+        Purchase purchase = getPurchaseWithQuantityUnavailable();
+        List<Purchase> purchaseList = new ArrayList<>();
+        purchaseList.add(purchase);
+        return purchaseList;
+    }
+
+    public static Cart getNewCartOpen(){
+        Buyer buyer = getBuyer();
+        return Cart.builder()
+                .buyer(buyer)
+                .listPurchase(getPurchaseList())
+                .totalPrice(1)
+                .date(LocalDate.parse("2023-02-02"))
+                .orderStatus("Open")
+                .build();
+    }
+
+    public static Cart getNewCartOpenWithoutCapacity(){
+        Buyer buyer = getBuyer();
+        return Cart.builder()
+                .buyer(buyer)
+                .listPurchase(getPurchaseWithoutCapacity())
+                .totalPrice(1)
+                .date(LocalDate.parse("2023-02-02"))
+                .orderStatus("Open")
+                .build();
+    }
+
+    public static Cart getNewCartOpenWithQuantityUnavailable(){
+        Buyer buyer = getBuyer();
+        return Cart.builder()
+                .buyer(buyer)
+                .listPurchase(getPurchaseWhitQuantityUnavailable())
+                .totalPrice(1)
+                .date(LocalDate.parse("2023-02-02"))
+                .orderStatus("Open")
+                .build();
+    }
+
+    public static Cart getCartFinished(){
+        Buyer buyer = getBuyer();
+        return Cart.builder()
+                .cartId(1L)
+                .buyer(buyer)
+                .listPurchase(getPurchaseList())
+                .totalPrice(1)
+                .date(LocalDate.parse("2023-02-02"))
+                .orderStatus("Finished")
+                .build();
+    }
+
+
+
+    public static Cart getCartOpen(){
+        Buyer buyer = getBuyer();
+        return Cart.builder()
+                .cartId(1L)
+                .buyer(buyer)
+                .listPurchase(getPurchaseList())
+                .totalPrice(1)
+                .date(LocalDate.parse("2023-02-02"))
+                .orderStatus("Open")
+                .build();
+    }
+
+
+    public static Buyer getBuyer(){
+        return Buyer.builder()
+                .buyerId(1L)
+                .buyerName("Marina")
                 .build();
     }
 }

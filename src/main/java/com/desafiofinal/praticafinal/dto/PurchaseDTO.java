@@ -30,7 +30,7 @@ public class PurchaseDTO {
     private Integer productQuantity;
 
     public PurchaseDTO(Purchase purchase){
-        this.purchaseId = purchase.getCartBatchStockId();
+        this.purchaseId = purchase.getPurchaseId();
         this.pricePerProduct= purchase.getPricePerProduct();
         this.productQuantity= purchase.getProductQuantity();
     }
