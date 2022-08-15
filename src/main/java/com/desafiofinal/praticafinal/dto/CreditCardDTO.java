@@ -36,13 +36,6 @@ public class CreditCardDTO {
 
     }
 
-    public static CreditCardDTO getResponseLimits(CreditCard creditCard){
-        CreditCardDTO response = new CreditCardDTO();
-        response.setLimitTotal(creditCard.getLimitTotal());
-        response.setLimitAvailable(creditCard.getLimitAvailable());
-        return response;
-    }
-
     public static CreditCard convertToCreditCard(CreditCardDTO creditCardDTO){
         return CreditCard.builder()
                 .id(creditCardDTO.getId())

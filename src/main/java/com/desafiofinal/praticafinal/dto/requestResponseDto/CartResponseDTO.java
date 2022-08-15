@@ -1,8 +1,11 @@
-package com.desafiofinal.praticafinal.dto;
+package com.desafiofinal.praticafinal.dto.requestResponseDto;
 
+import com.desafiofinal.praticafinal.dto.BuyerDto;
+import com.desafiofinal.praticafinal.dto.CartDto;
+import com.desafiofinal.praticafinal.dto.CreditCardDTO;
+import com.desafiofinal.praticafinal.dto.PurchaseDTO;
 import com.desafiofinal.praticafinal.model.Buyer;
 import com.desafiofinal.praticafinal.model.Cart;
-import com.desafiofinal.praticafinal.model.CreditCard;
 import com.desafiofinal.praticafinal.model.Purchase;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +24,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartDto {
+public class CartResponseDTO {
 
     private long cartId;
 
@@ -36,34 +39,21 @@ public class CartDto {
 
     private String orderStatus;
 
-    @NotEmpty(message = "Purchase list cannot be empty")
-    private List<@Valid PurchaseDTO> purchaseList;
+    private Long creditCard;
 
-
-    public CartDto(Cart cart){
+    public CartResponseDTO(Cart cart){
         this.cartId=cart.getCartId();
         this.buyer = new BuyerDto(cart.getBuyer());
         this.totalPrice=cart.getTotalPrice();
         this.date = cart.getDate();
         this.orderStatus = cart.getOrderStatus();
+        this.creditCard = cart.getCreditCard().getCardNumber();
     }
 
-    public static Cart convertDtoToCart (CartDto cartDto){
-        Buyer newBuyer = BuyerDto.convertDtoToBuyer(cartDto.getBuyer());
-        List<Purchase> newPurchase = PurchaseDTO.convertToListEntity(cartDto.getPurchaseList());
-
-        return Cart.builder()
-                .cartId(cartDto.getCartId())
-                .buyer(newBuyer)
-                .date(cartDto.getDate())
-                .orderStatus(cartDto.getOrderStatus())
-                .listPurchase(newPurchase)
-                .build();
-    }
-
-    public static List<CartDto> convertListToDTO(List<Cart> creditCardList){
+    public static List<CartResponseDTO> convertListToDTO(List<Cart> creditCardList){
         return creditCardList.stream()
-                .map(CartDto::new)
+                .map(CartResponseDTO::new)
                 .collect(Collectors.toList());
     }
 }
+

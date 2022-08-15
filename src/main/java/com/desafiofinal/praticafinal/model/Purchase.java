@@ -1,5 +1,6 @@
 package com.desafiofinal.praticafinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class Purchase {
 
     @ManyToOne
     @JoinColumn(name = "id_cart")
+    @JsonIgnoreProperties({"listPurchase", "idCart", "creditCard", "batchStock"})
     private Cart idCart;
 
     @ManyToOne

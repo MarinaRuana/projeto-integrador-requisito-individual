@@ -32,9 +32,11 @@ public class Cart {
     private String orderStatus;
 
     @OneToMany (mappedBy = "idCart")
+    @JsonIgnoreProperties({"idCart", "batchStock", "listPurchase"})
     private List<Purchase> listPurchase;
 
     @ManyToOne
     @JoinColumn(name = "credit_card_id")
+    @JsonIgnoreProperties({"cartList", "idBuyer"})
     private CreditCard creditCard;
 }

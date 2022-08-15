@@ -22,9 +22,10 @@ public class Buyer {
     private String buyerName;
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.REFRESH)
+    @JsonIgnoreProperties({"listPurchase", "buyer", "creditCard"})
     private List<Cart> cartList;
 
     @OneToMany(mappedBy = "idBuyer", cascade = CascadeType.REFRESH)
-    @JsonIgnoreProperties({"creditCards", "idBuyer"})
+    @JsonIgnoreProperties({"creditCards", "idBuyer", "cartList"})
     private List<CreditCard> creditCards;
 }

@@ -1,11 +1,16 @@
 package com.desafiofinal.praticafinal.controller;
 
+import com.desafiofinal.praticafinal.dto.CartDto;
 import com.desafiofinal.praticafinal.dto.CreditCardDTO;
+import com.desafiofinal.praticafinal.dto.requestResponseDto.CartResponseDTO;
+import com.desafiofinal.praticafinal.model.Cart;
 import com.desafiofinal.praticafinal.model.CreditCard;
 import com.desafiofinal.praticafinal.service.CreditCardImpService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/payments")
@@ -25,10 +30,14 @@ public class CreditCardController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/credit_card/{id}")
-    public ResponseEntity<CreditCardDTO> getCreditCardLimits(@PathVariable long id){
-        CreditCard creditCard = creditCardService.getCreditCardLimits(id);
-        CreditCardDTO response = CreditCardDTO.getResponseLimits(creditCard);
+    @GetMapping("/credit_card/limits/{id}")
+    public ResponseEntity<String> getCreditCardLimits(@PathVariable long id){
+        String response = creditCardService.getCreditCardLimits(id);
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/credit_card/bill/{cardNumber}")
+    public ResponseEntity<List<CartResponseDTO>> getCreditCardBill(@PathVariable long cardNumber){
+        List<CartResponseDTO> response = CartResponseDTO.convertListToDTO(creditCardService.getCardBill(cardNumber));
         return ResponseEntity.ok(response);
     }
 

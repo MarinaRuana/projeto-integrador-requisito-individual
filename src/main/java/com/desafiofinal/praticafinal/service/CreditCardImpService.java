@@ -30,34 +30,58 @@ public class CreditCardImpService {
         this.cartRepo = cartRepo;
         this.purchaseRepo = purchaseRepo;
     }
-
-    // TODO : Calculo do limite disponivel.
-    // TODO: Verificar numero do cartão (unico).
+    //TODO:
+    // Verifica se o limite disponivel é menor do que o limite total - OK
+    // Verifica se o numero do cartão ja existe                      - OK
+    // verifica se o buyer existe                                    - OK
+    // verifica se o cartão ja possui um id                          - OK
+    // salva o cartão                                                - OK
+    // Validações                                                    - A fazer
+    // Testes Unitários                                              - A fazer
     public CreditCard registerCard(CreditCard newCreditCard){
-        Buyer foundBuyer = verifyBuyer(newCreditCard.getIdBuyer(), newCreditCard);
-        newCreditCard.setIdBuyer(foundBuyer);
+        verifyLimits(newCreditCard);
+        verifyCreditCardNumberExists(newCreditCard.getCardNumber());
+        verifyBuyer(newCreditCard.getIdBuyer(), newCreditCard);
 
         Optional<CreditCard> foundCreditCard = creditCardRepo.findById(newCreditCard.getId());
-
         if (foundCreditCard.isPresent()) {
             throw new ElementAlreadyExistsException("Credit card already register");
         }
-        creditCardRepo.saveAll(foundBuyer.getCreditCards());
         return creditCardRepo.save(newCreditCard);
     }
 
-    public CreditCard getCreditCardLimits(Long id){
+    // TODO:
+    //  Verifica se o cartão existe e retorna ele                     - OK
+    //  Retorna String com o limite total e o disponivel deste cartão - OK
+    //  Validações                                                    - A fazer
+    //  Testes Unitários                                              - A fazer
+    public String getCreditCardLimits(Long id){
         Optional<CreditCard> foundCreditCard = creditCardRepo.findById(id);
 
         if (foundCreditCard.isEmpty()) {
             throw new ElementNotFoundException("Credit card does not exists");
         }
-        return foundCreditCard.get();
+
+        return "Card Number: "+ foundCreditCard.get().getCardNumber() + "\n" +
+                "Total limit :" + foundCreditCard.get().getLimitTotal() + "\n" +
+                "Limit Available: " + foundCreditCard.get().getLimitAvailable();
     }
 
+    // TODO:
+    //  Verifica se o cartão existe pelo numero                         - OK
+    //  Verifica se o cartão esta com status = true (unlocked)          - OK
+    //  Verifica se o status do carrinho esta Open                      - OK
+    //  Verifica se o limite disponivel é menor que o valor do carrinho - OK
+    //  Subtrai o valor do carrinho do limite disponivel                - OK
+    //  Muda o OrderStatus do carrinho para Finished                    - OK
+    //  Salva a mudancas no carrinho                                    - OK
+    //  Salva as mudancas no cartao Retorna String de successfully      - OK
+    //  Validações                                                      - A fazer
+    //  Testes Unitários                                                - A fazer
     public String buyCart(Long cartId, Long cardNumber){
 
-        CreditCard creditCard = verifyCreditCardNumber(cardNumber);
+        CreditCard creditCard = verifyCreditCardNumberNotExists(cardNumber);
+        verifyStatus(creditCard);
         Cart cart = verifyCartExists(cartId);
 
         if(creditCard.getLimitAvailable() < cart.getTotalPrice()){
@@ -66,11 +90,33 @@ public class CreditCardImpService {
         double value = creditCard.getLimitAvailable() - cart.getTotalPrice();
         double cartValue = creditCard.getLimitAvailable() - value;
         creditCard.setLimitAvailable(value);
+        cart.setCreditCard(creditCard);
         cart.setOrderStatus("Finished");
         cartRepo.save(cart);
         creditCardRepo.save(creditCard);
 
         return "your purchase value of: " + cartValue + " has been processed successfully, thanks your preference!";
+    }
+
+    //TODO:
+    // Procura o cartão de credito a partir do seu cardNumber - OK
+    // Retorna A lista de carts compradas por esse cartão     - OK
+    // Validações                                            - A fazer
+    // Testes Unitários                                      - A fazer
+    public List<Cart> getCardBill(Long cardNumber){
+        CreditCard foundCard = verifyCreditCardNumberNotExists(cardNumber);
+        return foundCard.getCartList();
+    }
+
+    private void verifyStatus(CreditCard creditCard) {
+        if(!creditCard.isStatus()){
+            throw new ExceededCapacityException("This credit card is blocked");
+        }
+    }
+    private void verifyLimits(CreditCard newCreditCard) {
+        if(newCreditCard.getLimitTotal() < newCreditCard.getLimitAvailable()){
+            throw new ElementAlreadyExistsException("Total limit cannot be less than the available limit");
+        }
     }
 
     private Cart verifyCartExists(Long cartId) {
@@ -85,18 +131,27 @@ public class CreditCardImpService {
         return foundCart.get();
     }
 
-    private CreditCard verifyCreditCardNumber(Long cardNumber) {
+    private CreditCard verifyCreditCardNumberNotExists(Long cardNumber) {
         CreditCard foundCreditCard = creditCardRepo.findByCardNumber(cardNumber);
-        if(foundCreditCard.getId() <= 0){
+        if(foundCreditCard.getId() <= 0) {
             throw new ElementNotFoundException("Credit card does not exists");
         }
         return foundCreditCard;
     }
 
+    private void verifyCreditCardNumberExists(Long cardNumber) {
+        Optional<CreditCard> foundCreditCard = Optional.ofNullable(creditCardRepo.findByCardNumber(cardNumber));
+        if(foundCreditCard.isPresent()) {
+            throw new ElementAlreadyExistsException("Credit card already exists");
+        }
+    }
+
+
     private Buyer verifyBuyer(Buyer buyer, CreditCard creditCard) {
         Optional<Buyer> foundBuyer = buyerRepo.findById(buyer.getBuyerId());
         if (foundBuyer.isPresent()) {
             creditCard.setIdBuyer(foundBuyer.get());
+            creditCardRepo.saveAll(foundBuyer.get().getCreditCards());
             return foundBuyer.get();
         } else {
             throw new ElementNotFoundException("Buyer does not exists");

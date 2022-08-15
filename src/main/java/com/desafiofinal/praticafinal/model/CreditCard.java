@@ -34,8 +34,8 @@ public class CreditCard {
 
     private boolean status;
 
-    @OneToMany(mappedBy = "creditCard")
-    @JsonIgnoreProperties({"listPurchase", "creditCard"})
+    @OneToMany(mappedBy = "creditCard", cascade = CascadeType.REFRESH)
+    @JsonIgnoreProperties({"listPurchase", "creditCard", "buyer"})
     private List<Cart> cartList;
 
 }
