@@ -18,7 +18,8 @@ public class BuyerDto {
     private String buyerName;
 
     public BuyerDto (Buyer buyer){
-        this.buyerId= buyer.getBuyerId();
+        this.buyerId = buyer.getBuyerId();
+        this.buyerName = buyer.getBuyerName();
     }
 
     public static Buyer convertDtoToBuyer (BuyerDto buyerDto){

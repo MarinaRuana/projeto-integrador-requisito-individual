@@ -30,6 +30,8 @@ public class CreditCardImpService {
         this.purchaseRepo = purchaseRepo;
     }
 
+    // TODO : Calculo do limite disponivel.
+    // TODO: Verificar numero do cartão (unico).
     public CreditCard registerCard(CreditCard newCreditCard){
         Buyer foundBuyer = verifyBuyer(newCreditCard.getIdBuyer(), newCreditCard);
         newCreditCard.setIdBuyer(foundBuyer);
@@ -41,15 +43,20 @@ public class CreditCardImpService {
         }
         creditCardRepo.saveAll(foundBuyer.getCreditCards());
         return creditCardRepo.save(newCreditCard);
+    }
 
+    public CreditCard getCreditCardLimits(Long id){
+        Optional<CreditCard> foundCreditCard = creditCardRepo.findById(id);
+
+        if (foundCreditCard.isEmpty()) {
+            throw new ElementNotFoundException("Credit card does not exists");
+        }
+        return foundCreditCard.get();
     }
 
     private Buyer verifyBuyer(Buyer buyer, CreditCard creditCard) {
         Optional<Buyer> foundBuyer = buyerRepo.findById(buyer.getBuyerId());
         if (foundBuyer.isPresent()) {
-            List<CreditCard> creditCardList = foundBuyer.get().getCreditCards();
-            creditCardList.add(creditCard);
-            foundBuyer.get().setCreditCards(creditCardList);
             return foundBuyer.get();
         } else {
             throw new ElementNotFoundException("Buyer does not exists");
