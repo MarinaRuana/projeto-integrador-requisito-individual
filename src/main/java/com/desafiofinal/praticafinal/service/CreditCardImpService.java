@@ -33,7 +33,7 @@ public class CreditCardImpService implements ICreditCardService{
     // verifica se o buyer existe                                    - OK
     // verifica se o cartão ja possui um id                          - OK
     // salva o cartão                                                - OK
-    // Validações                                                    - A fazer
+    // Validações                                                    - OK
     // Testes Unitários                                              - A fazer
     @Override
     public CreditCard registerCard(CreditCard newCreditCard){
@@ -52,7 +52,6 @@ public class CreditCardImpService implements ICreditCardService{
     // TODO:
     //  Verifica se o cartão existe e retorna ele                     - OK
     //  Retorna String com o limite total e o disponivel deste cartão - OK
-    //  Validações                                                    - A fazer
     //  Testes Unitários                                              - A fazer
     @Override
     public String getCreditCardLimits(Long id){
@@ -76,7 +75,6 @@ public class CreditCardImpService implements ICreditCardService{
     //  Muda o OrderStatus do carrinho para Finished                    - OK
     //  Salva a mudancas no carrinho                                    - OK
     //  Salva as mudancas no cartao Retorna String de successfully      - OK
-    //  Validações                                                      - A fazer
     //  Testes Unitários                                                - A fazer
     @Override
     public String buyCart(Long cartId, String cardNumber){
@@ -102,7 +100,6 @@ public class CreditCardImpService implements ICreditCardService{
     //TODO:
     // Procura o cartão de credito a partir do seu cardNumber - OK
     // Retorna A lista de carts compradas por esse cartão     - OK
-    // Validações                                            - A fazer
     // Testes Unitários                                      - A fazer
     @Override
     public List<Cart> getCardBill(String cardNumber){
@@ -114,7 +111,6 @@ public class CreditCardImpService implements ICreditCardService{
     // Verifica se o cartao existe a partir de seu numero       - OK
     // Muda o status do cartao Salva o cartao como novo status  - OK
     // Retorna mensagem informando o status atual do cartao     - OK
-    // Validações                                            - A fazer
     // Testes Unitários                                      - A fazer
     @Override
     public String updateCardStatus(String cardNumber){
@@ -133,7 +129,6 @@ public class CreditCardImpService implements ICreditCardService{
     //TODO:
     // Achar buyer pelo id                      - OK
     // Retornar a lista de Cartoes desse buyer  - OK
-    // Validações                               - A fazer
     // Testes Unitários                         - A fazer
     @Override
     public List<CreditCard> getWallet(long buyerId){
