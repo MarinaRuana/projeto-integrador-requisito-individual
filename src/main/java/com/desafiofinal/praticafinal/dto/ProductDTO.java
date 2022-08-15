@@ -24,15 +24,13 @@ public class ProductDTO {
 
     private double price;
 
-    private String productId;
-
     private String productName;
 
     private SellerDTO seller;
 
     private Double bulk;
 
-    @JsonIgnore
+//    @JsonIgnore
 //    private List<BatchStock> batchList;
 
     public ProductDTO(Product product){

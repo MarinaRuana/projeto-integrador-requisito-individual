@@ -25,8 +25,8 @@ public class CreditCard {
     @JsonIgnoreProperties({"creditCards", "cartList"})
     private Buyer idBuyer;
 
-    @Column(unique = true, nullable = false)
-    private Long cardNumber;
+    @Column(length = 6, unique = true, nullable = false)
+    private String cardNumber;
 
     private double limitTotal;
 

@@ -11,11 +11,11 @@ public interface ICreditCardService {
 
     String getCreditCardLimits(Long id);
 
-    String buyCart(Long cartId, Long cardNumber);
+    String buyCart(Long cartId, String cardNumber);
 
-    List<Cart> getCardBill(Long cardNumber);
+    List<Cart> getCardBill(String cardNumber);
 
-    String updateCardStatus(Long cardNumber);
+    String updateCardStatus(String cardNumber);
 
     List<CreditCard> getWallet(long buyerId);
 }

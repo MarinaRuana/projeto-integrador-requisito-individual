@@ -79,7 +79,7 @@ public class CreditCardImpService implements ICreditCardService{
     //  Validações                                                      - A fazer
     //  Testes Unitários                                                - A fazer
     @Override
-    public String buyCart(Long cartId, Long cardNumber){
+    public String buyCart(Long cartId, String cardNumber){
 
         CreditCard creditCard = verifyCreditCardNumberNotExists(cardNumber);
         verifyStatus(creditCard);
@@ -105,7 +105,7 @@ public class CreditCardImpService implements ICreditCardService{
     // Validações                                            - A fazer
     // Testes Unitários                                      - A fazer
     @Override
-    public List<Cart> getCardBill(Long cardNumber){
+    public List<Cart> getCardBill(String cardNumber){
         CreditCard foundCard = verifyCreditCardNumberNotExists(cardNumber);
         return foundCard.getCartList();
     }
@@ -117,7 +117,7 @@ public class CreditCardImpService implements ICreditCardService{
     // Validações                                            - A fazer
     // Testes Unitários                                      - A fazer
     @Override
-    public String updateCardStatus(Long cardNumber){
+    public String updateCardStatus(String cardNumber){
         CreditCard foundCreditCard = verifyCreditCardNumberNotExists(cardNumber);
         if(foundCreditCard.isStatus()) {
             foundCreditCard.setStatus(false);
@@ -164,7 +164,7 @@ public class CreditCardImpService implements ICreditCardService{
         return foundCart.get();
     }
 
-    private CreditCard verifyCreditCardNumberNotExists(Long cardNumber) {
+    private CreditCard verifyCreditCardNumberNotExists(String cardNumber) {
         Optional<CreditCard> foundCreditCard = Optional.ofNullable(creditCardRepo.findByCardNumber(cardNumber));
         if(foundCreditCard.isEmpty()) {
             throw new ElementNotFoundException("Credit card does not exists");
@@ -172,7 +172,7 @@ public class CreditCardImpService implements ICreditCardService{
         return foundCreditCard.get();
     }
 
-    private void verifyCreditCardNumberExists(Long cardNumber) {
+    private void verifyCreditCardNumberExists(String cardNumber) {
         Optional<CreditCard> foundCreditCard = Optional.ofNullable(creditCardRepo.findByCardNumber(cardNumber));
         if(foundCreditCard.isPresent()) {
             throw new ElementAlreadyExistsException("Credit card already exists");

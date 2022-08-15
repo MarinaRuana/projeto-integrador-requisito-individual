@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class CreditCardController {
     }
 
     @PostMapping("/register_card")
-    public ResponseEntity<CreditCardDTO> registerCard(@RequestBody CreditCardDTO newCreditCard){
+    public ResponseEntity<CreditCardDTO> registerCard(@RequestBody @Valid CreditCardDTO newCreditCard){
         CreditCard newCard = CreditCardDTO.convertToCreditCard(newCreditCard);
         CreditCard creditCard = creditCardService.registerCard(newCard);
         CreditCardDTO response = new CreditCardDTO(creditCard);
@@ -34,7 +35,7 @@ public class CreditCardController {
         return ResponseEntity.ok(response);
     }
     @GetMapping("/bill/{cardNumber}")
-    public ResponseEntity<List<CartResponseDTO>> getCreditCardBill(@PathVariable long cardNumber){
+    public ResponseEntity<List<CartResponseDTO>> getCreditCardBill(@PathVariable String cardNumber){
         List<CartResponseDTO> response = CartResponseDTO.convertListToDTO(creditCardService.getCardBill(cardNumber));
         return ResponseEntity.ok(response);
     }
@@ -46,13 +47,13 @@ public class CreditCardController {
     }
 
     @PutMapping("/buy_cart/{cartId}/{cardNumber}")
-    public ResponseEntity<String> buyCart(@PathVariable Long cartId, @PathVariable Long cardNumber){
+    public ResponseEntity<String> buyCart(@PathVariable Long cartId, @PathVariable String cardNumber){
         String response = creditCardService.buyCart(cartId, cardNumber);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update_status/{cardNumber}")
-    public ResponseEntity<String> updateStatus(@PathVariable long cardNumber){
+    public ResponseEntity<String> updateStatus(@PathVariable String cardNumber){
         String response = creditCardService.updateCardStatus(cardNumber);
         return ResponseEntity.ok(response);
     }

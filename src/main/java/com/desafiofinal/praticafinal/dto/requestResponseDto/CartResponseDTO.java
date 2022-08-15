@@ -39,7 +39,7 @@ public class CartResponseDTO {
 
     private String orderStatus;
 
-    private Long creditCard;
+    private String creditCard;
 
     public CartResponseDTO(Cart cart){
         this.cartId=cart.getCartId();

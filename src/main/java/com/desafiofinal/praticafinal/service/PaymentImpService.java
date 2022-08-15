@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class PaymentImpService {
+public class PaymentImpService implements IPaymentService{
 
     private final PaymentRepo paymentRepo;
 
@@ -37,7 +37,8 @@ public class PaymentImpService {
     // Salva o pagmento                           - OK
     // Validações                                - A fazer
     // Testes Unitários                          - A fazer
-    public String payCreditCard(long cardNumber, Payment payment){
+    @Override
+    public String payCreditCard(String cardNumber, Payment payment){
         CreditCard foundCreditCard = verifyCreditCardNumberExists(cardNumber);
         Buyer foundPayer = verifyBuyer(payment.getPayer().getBuyerId());
         payment.setPayer(foundPayer);
@@ -66,7 +67,7 @@ public class PaymentImpService {
         }
     }
 
-    private CreditCard verifyCreditCardNumberExists(Long cardNumber) {
+    private CreditCard verifyCreditCardNumberExists(String cardNumber) {
         Optional<CreditCard> foundCreditCard = Optional.ofNullable(creditCardRepo.findByCardNumber(cardNumber));
         if(foundCreditCard.isEmpty()) {
             throw new ElementNotFoundException("Credit card does not exists");
