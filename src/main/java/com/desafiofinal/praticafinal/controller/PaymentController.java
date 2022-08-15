@@ -17,7 +17,7 @@ public class PaymentController {
     }
 
     @PostMapping("/credit_card/{cardNumber}")
-    public ResponseEntity<String> payCreditCard(@PathVariable long cardNumber, @RequestBody PaymentDTO paymentDTO){
+    public ResponseEntity<String> payCreditCard(@PathVariable String cardNumber, @RequestBody PaymentDTO paymentDTO){
         Payment newPayment = PaymentDTO.convertToPayment(paymentDTO);
         String response = paymentService.payCreditCard(cardNumber, newPayment);
         return ResponseEntity.ok(response);
