@@ -38,4 +38,8 @@ public class CreditCard {
     @JsonIgnoreProperties({"listPurchase", "creditCard", "buyer"})
     private List<Cart> cartList;
 
+    @OneToMany(mappedBy = "creditCard")
+    @JsonIgnoreProperties({"creditCard", "payer"})
+    private List<Payment> payments;
+
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -45,5 +46,11 @@ public class CreditCardDTO {
                 .limitAvailable(creditCardDTO.getLimitAvailable())
                 .status(creditCardDTO.getStatus())
                 .build();
+    }
+
+    public static List<CreditCardDTO> covertListToDTO(List<CreditCard> creditCardList){
+        return creditCardList.stream()
+                .map(CreditCardDTO::new)
+                .collect(Collectors.toList());
     }
 }
