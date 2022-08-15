@@ -5,7 +5,7 @@ import com.desafiofinal.praticafinal.model.Payment;
 import com.desafiofinal.praticafinal.service.PaymentImpService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+// TODO : DOCUMENTATIONS / JAVADOC
 @RestController
 @RequestMapping("/api/v1/payments")
 public class PaymentController {

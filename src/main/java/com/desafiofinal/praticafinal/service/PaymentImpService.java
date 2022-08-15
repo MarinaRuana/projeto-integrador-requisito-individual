@@ -35,14 +35,14 @@ public class PaymentImpService implements IPaymentService{
     // Credita  valor do pagamento no cartao      - OK
     // Salva as alterações do cartão              - OK
     // Salva o pagmento                           - OK
-    // Validações                                - A fazer
-    // Testes Unitários                          - A fazer
+    // Validações                                 - OK
+    // Testes Unitários                           - OK
     @Override
     public String payCreditCard(String cardNumber, Payment payment){
         CreditCard foundCreditCard = verifyCreditCardNumberExists(cardNumber);
         Buyer foundPayer = verifyBuyer(payment.getPayer().getBuyerId());
         payment.setPayer(foundPayer);
-        verifyPayerAreBuyer(payment, foundCreditCard);
+        verifyPayerAreBuyer(payment.getPayer(), foundCreditCard.getIdBuyer());
         verifyPaymentIsAllowed(payment, foundCreditCard);
         payment.setCreditCard(foundCreditCard);
         double pay = foundCreditCard.getLimitAvailable() + payment.getValue();
@@ -61,8 +61,8 @@ public class PaymentImpService implements IPaymentService{
         }
     }
 
-    private void verifyPayerAreBuyer(Payment payment, CreditCard foundCreditCard) {
-        if(foundCreditCard.getIdBuyer().getBuyerId() != payment.getPayer().getBuyerId()){
+    private void verifyPayerAreBuyer(Buyer payer, Buyer cardOwner) {
+        if(payer.getBuyerId() != cardOwner.getBuyerId()){
             throw new ElementAlreadyExistsException("Credit card does not belong to this payer");
         }
     }

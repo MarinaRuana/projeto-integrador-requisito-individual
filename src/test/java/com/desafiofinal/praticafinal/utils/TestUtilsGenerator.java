@@ -246,4 +246,74 @@ public class TestUtilsGenerator {
                 .buyerName("Marina")
                 .build();
     }
+
+    public static Buyer getBuyerDifferentId(){
+        return  Buyer.builder()
+                .buyerId(2L)
+                .buyerName("Ruanna")
+                .build();
+    }
+
+    public static CreditCard getCreditCardUnlocked(){
+        Buyer buyer = getBuyer();
+        return CreditCard.builder()
+                .id(1L)
+                .idBuyer(buyer)
+                .cardNumber("123456")
+                .limitTotal(1000)
+                .limitAvailable(500)
+                .status(true)
+                .build();
+    }
+
+    public static CreditCard getNewCreditCardUnlocked(){
+        Buyer buyer = getBuyer();
+        return CreditCard.builder()
+                .idBuyer(buyer)
+                .cardNumber("123456")
+                .limitTotal(1000)
+                .limitAvailable(500)
+                .status(true)
+                .build();
+    }
+
+    public static Payment getNewPayment(){
+        Buyer buyer = getBuyer();
+        return Payment.builder()
+                .payer(buyer)
+                .value(500)
+                .build();
+    }
+    public static Payment getPayment(){
+        Buyer buyer = getBuyer();
+        return Payment.builder()
+                .id(1L)
+                .payer(buyer)
+                .value(500)
+                .build();
+    }
+    public static Payment getNewPaymentWithDifferentPayer(){
+        Buyer buyer = getBuyerDifferentId();
+        return Payment.builder()
+                .payer(buyer)
+                .value(500)
+                .build();
+    }
+    public static Payment getPaymentWithDifferentPayer(){
+        Buyer buyer = getBuyer();
+        buyer.setBuyerId(2L);
+        return Payment.builder()
+                .id(1L)
+                .payer(buyer)
+                .value(500)
+                .build();
+    }
+
+    public static Payment getNewPaymentValueExceeds(){
+        Buyer buyer = getBuyer();
+        return Payment.builder()
+                .payer(buyer)
+                .value(1000)
+                .build();
+    }
 }
