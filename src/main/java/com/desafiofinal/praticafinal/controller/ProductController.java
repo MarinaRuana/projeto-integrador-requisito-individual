@@ -39,7 +39,7 @@ public class ProductController {
     public ResponseEntity<ProductDTO> insertProduct(@RequestBody ProductDTO productDTO){
         Product newProduct = ProductDTO.convertDtoToProduct(productDTO);
         Product response = service.saveProduct(newProduct);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new ProductDTO(response));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ProductDTO(response));
     }
 
     /**

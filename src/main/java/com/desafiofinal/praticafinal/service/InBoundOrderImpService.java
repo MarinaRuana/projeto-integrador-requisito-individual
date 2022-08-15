@@ -48,7 +48,7 @@ public class InBoundOrderImpService implements IinBoundOrderService {
         if(updatedOrder.getOrderId() == 0) {
             throw new ElementNotFoundException("Inbound does not exists");
         }
-        verifyBatchStockPertenceToInBoundOrder(inBoundOrder.getBatchStockList(), inBoundOrder);
+        verifyBatchStockBelongsToInBoundOrder(inBoundOrder.getBatchStockList(), inBoundOrder);
         return inBoundOrderRepo.save(updatedOrder);
     }
 
@@ -93,7 +93,7 @@ public class InBoundOrderImpService implements IinBoundOrderService {
 
     }
 
-    private void verifyBatchStockPertenceToInBoundOrder(List<BatchStock> batchStockList, InBoundOrder inBoundOrder) {
+    private void verifyBatchStockBelongsToInBoundOrder(List<BatchStock> batchStockList, InBoundOrder inBoundOrder) {
         for(BatchStock responseStock : batchStockList) {
             Optional<BatchStock> foundBatch = batchStockRepo.findById(responseStock.getBatchId());
             if(foundBatch.isPresent()) {

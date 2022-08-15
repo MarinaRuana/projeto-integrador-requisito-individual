@@ -9,27 +9,24 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class Purchase {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Payment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long purchaseId;
+    private long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_cart")
-    @JsonIgnoreProperties({"listPurchase", "idCart", "creditCard", "batchStock"})
-    private Cart idCart;
+    @JoinColumn(name = "buyer")
+    @JsonIgnoreProperties({"creditCards", "cartList"})
+    private Buyer payer;
 
     @ManyToOne
-    @JoinColumn(name = "id_batchStock")
-    private BatchStock batchStock;
+    @JoinColumn(name = "credit_card")
+    private CreditCard creditCard;
 
-    private double pricePerProduct;
-
-    private int productQuantity;
-
-
+    private double value;
 }
