@@ -14,17 +14,27 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Buyer {
+public class CreditCard {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long buyerId;
+    private long id;
 
-    private String buyerName;
+    @ManyToOne
+    @JoinColumn(name = "id_buyer")
+    @JsonIgnoreProperties({"creditCards", "cartList"})
+    private Buyer idBuyer;
 
-    @OneToMany(mappedBy = "buyer", cascade = CascadeType.REFRESH)
+    private long cardNumber;
+
+    private double limitTotal;
+
+    private double limitAvailable;
+
+    private boolean status;
+
+    @OneToMany(mappedBy = "creditCard")
+    @JsonIgnoreProperties({"listPurchase", "creditCard"})
     private List<Cart> cartList;
 
-    @OneToMany(mappedBy = "idBuyer", cascade = CascadeType.REFRESH)
-    @JsonIgnoreProperties({"creditCards", "idBuyer"})
-    private List<CreditCard> creditCards;
 }

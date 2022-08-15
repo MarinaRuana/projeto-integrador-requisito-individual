@@ -1,5 +1,6 @@
 package com.desafiofinal.praticafinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Cart {
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn (name = "buyer_id")
+    @JsonIgnoreProperties({"cartList", "creditCards"})
     private Buyer buyer;
 
     private double totalPrice;
@@ -31,4 +33,8 @@ public class Cart {
 
     @OneToMany (mappedBy = "idCart")
     private List<Purchase> listPurchase;
+
+    @ManyToOne
+    @JoinColumn(name = "credit_card_id")
+    private CreditCard creditCard;
 }
