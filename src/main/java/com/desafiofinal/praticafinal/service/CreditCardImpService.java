@@ -2,6 +2,7 @@ package com.desafiofinal.praticafinal.service;
 
 import com.desafiofinal.praticafinal.exception.ElementAlreadyExistsException;
 import com.desafiofinal.praticafinal.exception.ElementNotFoundException;
+import com.desafiofinal.praticafinal.exception.ExceededCapacityException;
 import com.desafiofinal.praticafinal.model.*;
 import com.desafiofinal.praticafinal.repository.BuyerRepo;
 import com.desafiofinal.praticafinal.repository.CartRepo;
@@ -54,9 +55,48 @@ public class CreditCardImpService {
         return foundCreditCard.get();
     }
 
+    public String buyCart(Long cartId, Long cardNumber){
+
+        CreditCard creditCard = verifyCreditCardNumber(cardNumber);
+        Cart cart = verifyCartExists(cartId);
+
+        if(creditCard.getLimitAvailable() < cart.getTotalPrice()){
+           throw new ExceededCapacityException("Purchase value exceeds the card's current available limit");
+        }
+        double value = creditCard.getLimitAvailable() - cart.getTotalPrice();
+        double cartValue = creditCard.getLimitAvailable() - value;
+        creditCard.setLimitAvailable(value);
+        cart.setOrderStatus("Finished");
+        cartRepo.save(cart);
+        creditCardRepo.save(creditCard);
+
+        return "your purchase value of: " + cartValue + " has been processed successfully, thanks your preference!";
+    }
+
+    private Cart verifyCartExists(Long cartId) {
+        Optional<Cart> foundCart = cartRepo.findById(cartId);
+        if(foundCart.isEmpty()){
+            throw new ElementNotFoundException("Cart does not exists");
+        }
+
+        if(foundCart.get().getOrderStatus().equalsIgnoreCase("finished")){
+            throw new ElementAlreadyExistsException("This cart already finished");
+        }
+        return foundCart.get();
+    }
+
+    private CreditCard verifyCreditCardNumber(Long cardNumber) {
+        CreditCard foundCreditCard = creditCardRepo.findByCardNumber(cardNumber);
+        if(foundCreditCard.getId() <= 0){
+            throw new ElementNotFoundException("Credit card does not exists");
+        }
+        return foundCreditCard;
+    }
+
     private Buyer verifyBuyer(Buyer buyer, CreditCard creditCard) {
         Optional<Buyer> foundBuyer = buyerRepo.findById(buyer.getBuyerId());
         if (foundBuyer.isPresent()) {
+            creditCard.setIdBuyer(foundBuyer.get());
             return foundBuyer.get();
         } else {
             throw new ElementNotFoundException("Buyer does not exists");

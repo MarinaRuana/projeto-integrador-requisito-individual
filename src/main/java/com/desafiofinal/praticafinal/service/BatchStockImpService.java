@@ -40,7 +40,7 @@ public class BatchStockImpService implements IBatchStockService {
             verifyDueDatePerCategory(category, batchListByCategory, inBoundOrder);
         }
         if(batchListByCategory.isEmpty()){
-            throw new ElementAlreadyExistsException("No products were found for this category");
+            throw new ElementNotFoundException("No products were found for this category");
         }else {
             return batchListByCategory;
         }

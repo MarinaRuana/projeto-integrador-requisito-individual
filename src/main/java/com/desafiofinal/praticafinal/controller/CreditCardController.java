@@ -32,4 +32,10 @@ public class CreditCardController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/buyCart/{cartId}/{cardNumber}")
+    public ResponseEntity<String> buyCart(@PathVariable Long cartId, @PathVariable Long cardNumber){
+        String response = creditCardService.buyCart(cartId, cardNumber);
+        return ResponseEntity.ok(response);
+    }
+
 }
