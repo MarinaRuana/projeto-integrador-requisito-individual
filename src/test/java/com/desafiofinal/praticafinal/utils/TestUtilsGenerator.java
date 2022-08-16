@@ -34,7 +34,7 @@ public class TestUtilsGenerator {
 
 
     public static BatchStock getBatchStockAndSectorWithCapacity(){
-        Product product = getProductWhitId();
+        Product product = getProduct();
         Sector sector = getSector();
         InBoundOrder inBoundOrder = new InBoundOrder();
         inBoundOrder.setOrderId(1L);
@@ -53,7 +53,7 @@ public class TestUtilsGenerator {
                 .build();
     }
     public static BatchStock getBatchStockWithoutCapacity(){
-        Product product = getProductWhitId();
+        Product product = getProduct();
         Sector sector = getSectorWithoutCapacity();
         InBoundOrder inBoundOrder = new InBoundOrder();
         inBoundOrder.setOrderId(1L);
@@ -73,7 +73,7 @@ public class TestUtilsGenerator {
     }
 
     public static BatchStock getBatchStockWithoutOrder(){
-        Product product = getProductWhitId();
+        Product product = getProduct();
         InBoundOrder inBoundOrder = new InBoundOrder();
         inBoundOrder.setOrderId(3L);
 
@@ -104,7 +104,7 @@ public class TestUtilsGenerator {
         return batchStockList;
     }
 
-    public static Product getProductWhitId(){
+    public static Product getProduct(){
         Seller seller = getSeller();
         return Product.builder()
                 .id(1L)
@@ -116,10 +116,33 @@ public class TestUtilsGenerator {
                 .build();
     }
 
+    public static Product getNewProduct(){
+        Seller seller = getSeller();
+        return Product.builder()
+                .validateDate(LocalDate.parse("2023-01-01"))
+                .price(1.0)
+                .productType("cold")
+                .productName("ham")
+                .seller(seller)
+                .build();
+    }
+
+    public static List<Product> getProductList(){
+        List<Product> productList = new ArrayList<>();
+        Product product = getProduct();
+        productList.add(product);
+        return productList;
+    }
 
     public static Seller getSeller(){
         return Seller.builder()
                 .id(1L)
+                .sellerName("Maria")
+                .build();
+    }
+
+    public static Seller getNewSeller(){
+        return Seller.builder()
                 .sellerName("Maria")
                 .build();
     }
