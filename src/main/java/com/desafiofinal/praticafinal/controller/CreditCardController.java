@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/credit_card")
+@RequestMapping("/api/v1/credit-card")
 public class CreditCardController {
 
     private final CreditCardImpService creditCardService;
@@ -55,7 +55,7 @@ public class CreditCardController {
     }
 
     /**
-     * returns to a collection of carts that were purchased by this credit card
+     * this route returns a collection of carts that were purchased by this credit card
      * @autho Marina;
      * @param cardNumber(String);
      * @return Http response status ok, body: List<CartResponseDTO>;
