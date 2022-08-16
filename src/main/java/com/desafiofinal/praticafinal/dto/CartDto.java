@@ -2,6 +2,7 @@ package com.desafiofinal.praticafinal.dto;
 
 import com.desafiofinal.praticafinal.model.Buyer;
 import com.desafiofinal.praticafinal.model.Cart;
+import com.desafiofinal.praticafinal.model.CreditCard;
 import com.desafiofinal.praticafinal.model.Purchase;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 @Data
@@ -37,10 +39,13 @@ public class CartDto {
     @NotEmpty(message = "Purchase list cannot be empty")
     private List<@Valid PurchaseDTO> purchaseList;
 
+
     public CartDto(Cart cart){
         this.cartId=cart.getCartId();
         this.buyer = new BuyerDto(cart.getBuyer());
         this.totalPrice=cart.getTotalPrice();
+        this.date = cart.getDate();
+        this.orderStatus = cart.getOrderStatus();
     }
 
     public static Cart convertDtoToCart (CartDto cartDto){
@@ -54,5 +59,11 @@ public class CartDto {
                 .orderStatus(cartDto.getOrderStatus())
                 .listPurchase(newPurchase)
                 .build();
+    }
+
+    public static List<CartDto> convertListToDTO(List<Cart> creditCardList){
+        return creditCardList.stream()
+                .map(CartDto::new)
+                .collect(Collectors.toList());
     }
 }

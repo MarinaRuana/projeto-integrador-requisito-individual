@@ -32,14 +32,14 @@ public class ProductController {
 
     /**
      * This route creates a list of products alongside the seller information
-     * @param product ProductName(String), ProductType(String), ValidateDate(LocalDate), Price(double), IdSeller(Long), Bulk(double).
+     * @param productDTO ProductName(String), ProductType(String), ValidateDate(LocalDate), Price(double), IdSeller(Long), Bulk(double).
      * @return HTML Response 201: Created
      */
     @PostMapping
     public ResponseEntity<ProductDTO> insertProduct(@RequestBody ProductDTO productDTO){
         Product newProduct = ProductDTO.convertDtoToProduct(productDTO);
         Product response = service.saveProduct(newProduct);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new ProductDTO(response));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ProductDTO(response));
     }
 
     /**

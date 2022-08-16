@@ -38,5 +38,4 @@ public class ProductImplService implements IProductService{
     public List<Product> listAllProducts (){
         return repo.findAll();
     }
-
 }
