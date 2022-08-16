@@ -48,7 +48,7 @@ class InBoundOrderImpServiceTest {
         BDDMockito.when(inBoundOrderRepo.save(ArgumentMatchers.any(InBoundOrder.class)))
                 .thenReturn(TestUtilsGenerator.getOrderWithId());
         BDDMockito.when(productRepo.findById(ArgumentMatchers.anyLong()))
-                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProductWhitId()));
+                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProduct()));
         BDDMockito.when(batchStockRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(TestUtilsGenerator.getBatchStockAndSectorWithCapacity()));
         BDDMockito.when(sectorRepo.findById(ArgumentMatchers.anyLong()))
@@ -92,7 +92,7 @@ class InBoundOrderImpServiceTest {
     @Test
     void saveInBoundOrder_throwException_whenSectorNotExists(){
         BDDMockito.when(productRepo.findById(ArgumentMatchers.anyLong()))
-                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProductWhitId()));
+                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProduct()));
 
         InBoundOrder newOrder = TestUtilsGenerator.getNewOrder();
 
@@ -109,7 +109,7 @@ class InBoundOrderImpServiceTest {
         BDDMockito.when(inBoundOrderRepo.save(ArgumentMatchers.any(InBoundOrder.class)))
                 .thenReturn(TestUtilsGenerator.getOrderWithId());
         BDDMockito.when(productRepo.findById(ArgumentMatchers.anyLong()))
-                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProductWhitId()));
+                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProduct()));
         BDDMockito.when(batchStockRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(TestUtilsGenerator.getBatchStockAndSectorWithCapacity()));
         BDDMockito.when(sectorRepo.findById(ArgumentMatchers.anyLong()))
@@ -145,7 +145,7 @@ class InBoundOrderImpServiceTest {
         BDDMockito.when(inBoundOrderRepo.save(ArgumentMatchers.any(InBoundOrder.class)))
                 .thenReturn(TestUtilsGenerator.getOrderWithId());
         BDDMockito.when(productRepo.findById(ArgumentMatchers.anyLong()))
-                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProductWhitId()));
+                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProduct()));
         BDDMockito.when(sectorRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(TestUtilsGenerator.getSector()));
 
@@ -165,7 +165,7 @@ class InBoundOrderImpServiceTest {
         BDDMockito.when(batchStockRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(TestUtilsGenerator.getBatchStockWithoutOrder()));
         BDDMockito.when(productRepo.findById(ArgumentMatchers.anyLong()))
-                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProductWhitId()));
+                .thenReturn(Optional.ofNullable(TestUtilsGenerator.getProduct()));
         BDDMockito.when(sectorRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(TestUtilsGenerator.getSector()));
 

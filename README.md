@@ -10,8 +10,8 @@ access a buyer's credit cards and pay a credit card.
 - [Enhanced Entity-Relationship](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D%20Enhanced%20Entity%2DRelationship%20(EER)%3A)
 - [Methods](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,Methods,-%3A)
 - [Postman Collection](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,Postman%20Collection%3A,-eWallet%20%2D%20Postman%20Collection)
-- [Swagger](http://localhost:8080/swagger-ui/index.html)
-- -[Unit test](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,Unit%20test,-%3A)
+- [Swagger](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/feat/documentation#:~:text=%2D-,Swagger%3A,-%7B%22openapi%22%3A%223.0.1%22%2C%22info)
+- [Unit test](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,Unit%20test,-%3A)
 - [PayLoads](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,PayLoads,-%3A)
 
 ### - Classes:
@@ -28,6 +28,13 @@ access a buyer's credit cards and pay a credit card.
 ### - Methods:
 
 #### CreditCard Routes - [CreditCardController](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/main/java/com/desafiofinal/praticafinal/controller/CreditCardController.java)
+- 📪 Post: registerCard()
+- ⬅️ Get: getCreditCardLimits()
+- ⬅️ Get: getCreditCardBill()
+- ⬅️ Get: getWallet()
+- ➡️ Put: buyCart()
+- ➡️ Put: updateStatus()
+
 
 |  HTTP  | URL MODEL                                | DESCRIPTION                                                                     |    US-CODE     |
 |:------:|:-----------------------------------------|:--------------------------------------------------------------------------------|:--------------:|
@@ -39,6 +46,8 @@ access a buyer's credit cards and pay a credit card.
 | `PUT`  | /update_status/{cardNumber}              | changes the status of the credit card from the card number                      | ml-e-wallet-06 |
 
 #### Payment Routes - [PaymentController](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/main/java/com/desafiofinal/praticafinal/controller/PaymentController.java)
+- 📪 Post: payCreditCard()
+
 
 |  HTTP  | URL MODEL                                | DESCRIPTION                                                                           |    US-CODE     |
 |:------:|:-----------------------------------------|:--------------------------------------------------------------------------------------|:--------------:|
@@ -63,7 +72,7 @@ INSERT INTO product (id, bulk, price, product_name,id_seller, validate_date) VAL
 - [CreditCardImpServiceTest](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/test/java/com/desafiofinal/praticafinal/service/CreditCardImpServiceTest.java) - 100% coverage
 - [PaymentImpServiceTest](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/test/java/com/desafiofinal/praticafinal/service/PaymentImpServiceTest.java) - 100% coverage
 
-- total of service layer lines - 70%
+- total of service layer lines - 77%
 ### - PayLoads:
 
 ### **[POST] registerCard:** - */api/v1/credit-card/register_card*
