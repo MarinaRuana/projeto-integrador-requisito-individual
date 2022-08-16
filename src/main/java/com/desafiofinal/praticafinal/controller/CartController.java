@@ -30,7 +30,7 @@ public class CartController {
 
     /**
      * Route used to create a new cart 
-     * @param cart A list containing: CartId(Long), Buyer(BuyerId and Name), TotalPrice(Double), LocalDate(Date), OrderStatus(String) and batchStockList(List);
+     * @param cartDto A list containing: CartId(Long), Buyer(BuyerId and Name), TotalPrice(Double), LocalDate(Date), OrderStatus(String) and batchStockList(List);
      * @return HTML Response 201: Created
      * @throws Exception
      */
