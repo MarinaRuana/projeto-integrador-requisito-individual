@@ -27,32 +27,16 @@ public class CreditCardImpService implements ICreditCardService{
         this.buyerRepo = buyerRepo;
         this.cartRepo = cartRepo;
     }
-    //TODO:
-    // Verifica se o limite disponivel é menor do que o limite total - OK
-    // Verifica se o numero do cartão ja existe                      - OK
-    // verifica se o buyer existe                                    - OK
-    // verifica se o cartão ja possui um id                          - OK
-    // salva o cartão                                                - OK
-    // Validações                                                    - OK
-    // Testes Unitários                                              - A fazer
+
     @Override
     public CreditCard registerCard(CreditCard newCreditCard){
         verifyLimits(newCreditCard);
         verifyCreditCardNumberExists(newCreditCard.getCardNumber());
         Buyer foundBuyer = verifyBuyer(newCreditCard.getIdBuyer().getBuyerId());
         newCreditCard.setIdBuyer(foundBuyer);
-
-        Optional<CreditCard> foundCreditCard = creditCardRepo.findById(newCreditCard.getId());
-        if (foundCreditCard.isPresent()) {
-            throw new ElementAlreadyExistsException("Credit card already register");
-        }
         return creditCardRepo.save(newCreditCard);
     }
 
-    // TODO:
-    //  Verifica se o cartão existe e retorna ele                     - OK
-    //  Retorna String com o limite total e o disponivel deste cartão - OK
-    //  Testes Unitários                                              - A fazer
     @Override
     public String getCreditCardLimits(Long id){
         Optional<CreditCard> foundCreditCard = creditCardRepo.findById(id);
@@ -66,16 +50,6 @@ public class CreditCardImpService implements ICreditCardService{
                 "Limit Available: " + foundCreditCard.get().getLimitAvailable();
     }
 
-    // TODO:
-    //  Verifica se o cartão existe pelo numero                         - OK
-    //  Verifica se o cartão esta com status = true (unlocked)          - OK
-    //  Verifica se o status do carrinho esta Open                      - OK
-    //  Verifica se o limite disponivel é menor que o valor do carrinho - OK
-    //  Subtrai o valor do carrinho do limite disponivel                - OK
-    //  Muda o OrderStatus do carrinho para Finished                    - OK
-    //  Salva a mudancas no carrinho                                    - OK
-    //  Salva as mudancas no cartao Retorna String de successfully      - OK
-    //  Testes Unitários                                                - A fazer
     @Override
     public String buyCart(Long cartId, String cardNumber){
 
@@ -97,21 +71,12 @@ public class CreditCardImpService implements ICreditCardService{
         return "your purchase value of: " + cartValue + " has been processed successfully, thanks for your preference!";
     }
 
-    //TODO:
-    // Procura o cartão de credito a partir do seu cardNumber - OK
-    // Retorna A lista de carts compradas por esse cartão     - OK
-    // Testes Unitários                                      - A fazer
     @Override
     public List<Cart> getCardBill(String cardNumber){
         CreditCard foundCard = verifyCreditCardNumberNotExists(cardNumber);
         return foundCard.getCartList();
     }
 
-    //TODO:
-    // Verifica se o cartao existe a partir de seu numero       - OK
-    // Muda o status do cartao Salva o cartao como novo status  - OK
-    // Retorna mensagem informando o status atual do cartao     - OK
-    // Testes Unitários                                      - A fazer
     @Override
     public String updateCardStatus(String cardNumber){
         CreditCard foundCreditCard = verifyCreditCardNumberNotExists(cardNumber);
@@ -126,10 +91,6 @@ public class CreditCardImpService implements ICreditCardService{
         return "Cart " + foundCreditCard.getCardNumber() + " was unlocked, now you can use it";
     }
 
-    //TODO:
-    // Achar buyer pelo id                      - OK
-    // Retornar a lista de Cartoes desse buyer  - OK
-    // Testes Unitários                         - A fazer
     @Override
     public List<CreditCard> getWallet(long buyerId){
         Buyer foundBuyer = verifyBuyer(buyerId);
@@ -143,7 +104,7 @@ public class CreditCardImpService implements ICreditCardService{
     }
     private void verifyLimits(CreditCard newCreditCard) {
         if(newCreditCard.getLimitTotal() < newCreditCard.getLimitAvailable()){
-            throw new ElementAlreadyExistsException("Total limit cannot be less than the available limit");
+            throw new ExceededCapacityException("Total limit cannot be less than the available limit");
         }
     }
 

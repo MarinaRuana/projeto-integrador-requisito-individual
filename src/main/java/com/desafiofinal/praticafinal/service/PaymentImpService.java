@@ -28,15 +28,6 @@ public class PaymentImpService implements IPaymentService{
         this.buyerRepo = buyerRepo;
     }
 
-    //TODO:
-    // Verifica se o cartao existe                - OK
-    // Verifica se o pagador é o dono do cartao   - OK
-    // Adiciona o cartao de credito ao pagaento   - OK
-    // Credita  valor do pagamento no cartao      - OK
-    // Salva as alterações do cartão              - OK
-    // Salva o pagmento                           - OK
-    // Validações                                 - OK
-    // Testes Unitários                           - OK
     @Override
     public String payCreditCard(String cardNumber, Payment payment){
         CreditCard foundCreditCard = verifyCreditCardNumberExists(cardNumber);
