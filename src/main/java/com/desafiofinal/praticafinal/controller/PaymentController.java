@@ -8,9 +8,12 @@ import com.desafiofinal.praticafinal.model.Payment;
 import com.desafiofinal.praticafinal.service.PaymentImpService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
 // TODO : DOCUMENTATIONS / JAVADOC
 @RestController
-@RequestMapping("/api/v1/payments")
+@RequestMapping("/api/v1/ml-payment-01")
 public class PaymentController {
 
     private final PaymentImpService paymentService;
@@ -31,7 +34,7 @@ public class PaymentController {
      * @see Payment
      */
     @PostMapping("/credit_card/{cardNumber}")
-    public ResponseEntity<String> payCreditCard(@PathVariable String cardNumber, @RequestBody PaymentDTO paymentDTO){
+    public ResponseEntity<String> payCreditCard(@PathVariable String cardNumber, @RequestBody @Valid PaymentDTO paymentDTO){
         Payment newPayment = PaymentDTO.convertToPayment(paymentDTO);
         String response = paymentService.payCreditCard(cardNumber, newPayment);
         return ResponseEntity.ok(response);

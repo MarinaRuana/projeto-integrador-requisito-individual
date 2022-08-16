@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/credit_card")
+@RequestMapping("/api/v1/ml-credit_card-01")
 public class CreditCardController {
 
     private final CreditCardImpService creditCardService;
