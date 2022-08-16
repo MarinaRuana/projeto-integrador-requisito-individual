@@ -225,7 +225,12 @@ public class TestUtilsGenerator {
                 .build();
     }
 
-
+    public static List<Cart> getCartFinishedList(){
+        List<Cart> cartList = new ArrayList<>();
+        Cart cart = getCartFinished();
+        cartList.add(cart);
+        return cartList;
+    }
 
     public static Cart getCartOpen(){
         Buyer buyer = getBuyer();
@@ -239,11 +244,31 @@ public class TestUtilsGenerator {
                 .build();
     }
 
+    public static Cart getCartOpenValueExceedLimits(){
+        Buyer buyer = getBuyer();
+        return Cart.builder()
+                .cartId(1L)
+                .buyer(buyer)
+                .listPurchase(getPurchaseList())
+                .totalPrice(100000)
+                .date(LocalDate.parse("2023-02-02"))
+                .orderStatus("Open")
+                .build();
+    }
 
     public static Buyer getBuyer(){
         return Buyer.builder()
                 .buyerId(1L)
                 .buyerName("Marina")
+                .build();
+    }
+
+    public static Buyer getBuyerWithWallet(){
+        List<CreditCard> creditCardList = getCreditCardList();
+        return Buyer.builder()
+                .buyerId(1L)
+                .buyerName("Marina")
+                .creditCards(creditCardList)
                 .build();
     }
 
@@ -266,6 +291,14 @@ public class TestUtilsGenerator {
                 .build();
     }
 
+    public static List<CreditCard> getCreditCardList(){
+        List<CreditCard> creditCardList = new ArrayList<>();
+        CreditCard creditCard = getNewCreditCardUnlocked();
+        creditCardList.add(creditCard);
+
+        return creditCardList;
+    }
+
     public static CreditCard getNewCreditCardUnlocked(){
         Buyer buyer = getBuyer();
         return CreditCard.builder()
@@ -274,6 +307,65 @@ public class TestUtilsGenerator {
                 .limitTotal(1000)
                 .limitAvailable(500)
                 .status(true)
+                .build();
+    }
+
+    public static CreditCard getNewCreditCardLocked(){
+        Buyer buyer = getBuyer();
+        return CreditCard.builder()
+                .idBuyer(buyer)
+                .cardNumber("123456")
+                .limitTotal(1000)
+                .limitAvailable(500)
+                .status(false)
+                .build();
+    }
+
+    public static CreditCard getCreditCardLocked(){
+        Buyer buyer = getBuyer();
+        return CreditCard.builder()
+                .id(1L)
+                .idBuyer(buyer)
+                .cardNumber("123456")
+                .limitTotal(1000)
+                .limitAvailable(500)
+                .status(false)
+                .build();
+    }
+
+    public static CreditCard getNewCreditCardLimitsExceed(){
+        Buyer buyer = getBuyer();
+        return CreditCard.builder()
+                .idBuyer(buyer)
+                .cardNumber("123456")
+                .limitTotal(1000)
+                .limitAvailable(1500)
+                .status(true)
+                .build();
+    }
+    public static CreditCard getCreditCardLimitsExceed(){
+        Buyer buyer = getBuyer();
+        return CreditCard.builder()
+                .id(1L)
+                .idBuyer(buyer)
+                .cardNumber("123456")
+                .limitTotal(1000)
+                .limitAvailable(1500)
+                .status(true)
+                .build();
+    }
+
+    public static CreditCard getCreditCardWithCartList(){
+        Buyer buyer = getBuyer();
+        List<Cart> cartList = getCartFinishedList();
+        return CreditCard.builder()
+                .id(1L)
+                .idBuyer(buyer)
+                .cardNumber("123456")
+                .limitTotal(1000)
+                .limitAvailable(500)
+                .status(true)
+                .cartList(cartList)
                 .build();
     }
 
