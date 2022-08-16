@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 // TODO : DOCUMENTATIONS / JAVADOC
 @RestController
-@RequestMapping("/api/v1/ml-payment-01")
+@RequestMapping("/api/v1/payment")
 public class PaymentController {
 
     private final PaymentImpService paymentService;
@@ -23,7 +23,8 @@ public class PaymentController {
     }
 
     /**
-     * This route create a payment for a credit card when payer are already the credit card owner;     * @autho Marina;
+     * This route create a payment for a credit card when payer are already the credit card owner;
+     * @autho Marina;
      * @param cardNumber(String), PaymentDTO containing: payer(Buyer), value(Double);
      * @return Http response status 201: CREATED, body: String;
      * @throws ElementNotFoundException - when the credit card with this card number does not exist in the database;

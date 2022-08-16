@@ -25,8 +25,7 @@ public class CreditCardImpService implements ICreditCardService{
     public CreditCardImpService(CreditCardRepo creditCardRepo, BuyerRepo buyerRepo, CartRepo cartRepo, PurchaseRepo purchaseRepo) {
         this.creditCardRepo = creditCardRepo;
         this.buyerRepo = buyerRepo;
-        this.cartRepo = cartRepo;
-    }
+        this.cartRepo = cartRepo; }
 
     @Override
     public CreditCard registerCard(CreditCard newCreditCard){
@@ -143,6 +142,5 @@ public class CreditCardImpService implements ICreditCardService{
             throw new ElementNotFoundException("Buyer does not exists");
         }
     }
-
 
 }
