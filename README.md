@@ -3,23 +3,22 @@ eWallet provides a REST API that allows you to register a credit card for an exi
 access the limits of an already created credit card, buy an existing and valid cart, 
 access a buyer's credit cards and pay a credit card.
 
-- [REQUIREMENT 6](https://docs.google.com/document/d/1-nVFp7ijRl6yHUWIos8oNRI4qhW0ZN90/edit?usp=sharing&ouid=106995492824829831096&rtpof=true&sd=true)
-
+[REQUIREMENT 6](https://docs.google.com/document/d/1-nVFp7ijRl6yHUWIos8oNRI4qhW0ZN90/edit?usp=sharing&ouid=106995492824829831096&rtpof=true&sd=true) *the pdf doc of the user story can be found in the diretory addicionalDocs*
 ### - Summary:
-- [Classes](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,Classes,-%3A)
-- [Enhanced Entity-Relationship](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D%20Enhanced%20Entity%2DRelationship%20(EER)%3A)
-- [Methods](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,Methods,-%3A)
-- [Postman Collection](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,Postman%20Collection%3A,-eWallet%20%2D%20Postman%20Collection)
-- [Swagger](https://github.com/MarinaRuana/projeto-integrador-requisito-individual#:~:text=eWallet%20%2D%20Postman%20Collection-,%2D%20Swagger%3A,-%7B%22openapi%22%3A%223.0.1%22%2C%22info)
-- [Unit test](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,Unit%20test,-%3A)
-- [PayLoads](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,PayLoads,-%3A)
+- [Classes](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/master#:~:text=%2D-,Classes,-%3A)
+- [Enhanced Entity-Relationship](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/master#:~:text=%2D%20Enhanced%20Entity%2DRelationship%20(EER))
+- [Methods](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/master#:~:text=%2D-,Methods%3A,-CreditCard%20Routes%20%2D)
+- [Postman Collection](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/master#:~:text=%2D-,Postman%20Collection,-%3A%20eWallet%20%2D%20Postman)
+- [Swagger](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/master#:~:text=%2D-,Swagger%3A,-%7B%22openapi%22%3A%223.0.1%22%2C%22info)
+- [Unit test](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/master#:~:text=%2D-,Unit%20test%3A,-CreditCardImpServiceTest%20%2D%20100%25%20coverage)
+- [PayLoads](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/master#:~:text=%2D-,PayLoads,-%3A)
 
 ### - Classes:
 
- - [Buyer](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/main/java/com/desafiofinal/praticafinal/model/Buyer.java)
- - [Cart](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/main/java/com/desafiofinal/praticafinal/model/Cart.java)
- - [CreditCard](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/main/java/com/desafiofinal/praticafinal/model/CreditCard.java)
- - [Payment](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/main/java/com/desafiofinal/praticafinal/model/Payment.java)
+ - [Buyer](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/master/src/main/java/com/desafiofinal/praticafinal/model/Buyer.java)
+ - [Cart](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/master/src/main/java/com/desafiofinal/praticafinal/model/Cart.java)
+ - [CreditCard](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/master/src/main/java/com/desafiofinal/praticafinal/model/CreditCard.java)
+ - [Payment](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/master/src/main/java/com/desafiofinal/praticafinal/model/Payment.java)
 
 ### - Enhanced Entity-Relationship (EER):
 
@@ -27,7 +26,7 @@ access a buyer's credit cards and pay a credit card.
 
 ### - Methods:
 
-#### CreditCard Routes - [CreditCardController](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/main/java/com/desafiofinal/praticafinal/controller/CreditCardController.java)
+#### CreditCard Routes - [CreditCardController](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/master/src/main/java/com/desafiofinal/praticafinal/controller/CreditCardController.java)
 - 📪 Post: registerCard()
 - ⬅️ Get: getCreditCardLimits()
 - ⬅️ Get: getCreditCardBill()
@@ -45,7 +44,7 @@ access a buyer's credit cards and pay a credit card.
 | `PUT`  | /buy_cart/{cartId}/{cardNumber}          | buy an existing cart open, passing its status to finished and debiting the total value of this cart from the available limit of the credit card | ml-e-wallet-06 |
 | `PUT`  | /update_status/{cardNumber}              | changes the status of the credit card from the card number                                                                                      | ml-e-wallet-06 |
 
-#### Payment Routes - [PaymentController](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/main/java/com/desafiofinal/praticafinal/controller/PaymentController.java)
+#### Payment Routes - [PaymentController](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/master/src/main/java/com/desafiofinal/praticafinal/controller/PaymentController.java)
 - 📪 Post: payCreditCard()
 
 
@@ -71,8 +70,8 @@ INSERT INTO product (id, bulk, price, product_name,id_seller, validate_date) VAL
 ```
 
 ### - Unit test:
-- [CreditCardImpServiceTest](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/test/java/com/desafiofinal/praticafinal/service/CreditCardImpServiceTest.java) - 100% coverage
-- [PaymentImpServiceTest](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/test/java/com/desafiofinal/praticafinal/service/PaymentImpServiceTest.java) - 100% coverage
+- [CreditCardImpServiceTest](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/master/src/test/java/com/desafiofinal/praticafinal/service/CreditCardImpServiceTest.java) - 100% coverage
+- [PaymentImpServiceTest](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/master/src/test/java/com/desafiofinal/praticafinal/service/PaymentImpServiceTest.java) - 100% coverage
 
 - total of service layer lines - 82%
 ### - PayLoads:
