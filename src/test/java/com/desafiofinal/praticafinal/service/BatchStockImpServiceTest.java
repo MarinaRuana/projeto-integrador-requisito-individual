@@ -4,15 +4,14 @@ import com.desafiofinal.praticafinal.dto.queryDto.DataBaseQueryImp;
 import com.desafiofinal.praticafinal.dto.queryDto.ResponseSectorQuery;
 import com.desafiofinal.praticafinal.exception.ElementNotFoundException;
 
+import com.desafiofinal.praticafinal.model.BatchStock;
 import com.desafiofinal.praticafinal.repository.*;
 import com.desafiofinal.praticafinal.utils.TestUtilsGenerator;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -48,9 +47,28 @@ class BatchStockImpServiceTest {
     @Mock
     ISectorRepo sectorRepo;
 
-    @Test
-    void listBatchStockByCategory() {
+    @Mock
+    InBoundOrderRepo inBoundOrderRepo;
 
+    @Test
+    void listBatchStockByCategory_whenHasProductInCategory() {
+        BDDMockito.when(inBoundOrderRepo.findAll())
+                .thenReturn(TestUtilsGenerator.getOrderList());
+
+        List<BatchStock> batchStockList = batchStockImpService.listBatchStockByCategory("FF");
+
+        assertThat(batchStockList).isNotNull();
+        assertThat(batchStockList.size()).isEqualTo(3);
+        Mockito.verify(inBoundOrderRepo, Mockito.atLeastOnce()).findAll();
+    }
+
+    @Test
+    void listBatchStockByCategory_throwsException_whenProductInCategoryNotExists() {
+
+        Assertions.assertThatThrownBy(()
+                        -> batchStockImpService.listBatchStockByCategory("FF"))
+                .isInstanceOf(ElementNotFoundException.class)
+                .hasMessageContaining("No products were found for this category");
     }
 
     @Test

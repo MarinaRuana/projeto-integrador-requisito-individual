@@ -32,6 +32,13 @@ public class TestUtilsGenerator {
                 .build();
     }
 
+    public static List<InBoundOrder> getOrderList(){
+        List<InBoundOrder> inBoundOrderList = new ArrayList<>();
+        InBoundOrder inBoundOrder = getOrderWithId();
+        inBoundOrderList.add(inBoundOrder);
+        return inBoundOrderList;
+    }
+
 
     public static BatchStock getBatchStockAndSectorWithCapacity(){
         Product product = getProduct();

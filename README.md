@@ -74,7 +74,7 @@ INSERT INTO product (id, bulk, price, product_name,id_seller, validate_date) VAL
 - [CreditCardImpServiceTest](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/test/java/com/desafiofinal/praticafinal/service/CreditCardImpServiceTest.java) - 100% coverage
 - [PaymentImpServiceTest](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/test/java/com/desafiofinal/praticafinal/service/PaymentImpServiceTest.java) - 100% coverage
 
-- total of service layer lines - 77%
+- total of service layer lines - 82%
 ### - PayLoads:
 
 ### **[POST] registerCard:** - */api/v1/credit-card/register_card*

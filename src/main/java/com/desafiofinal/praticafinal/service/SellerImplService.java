@@ -1,9 +1,11 @@
 package com.desafiofinal.praticafinal.service;
 
+import com.desafiofinal.praticafinal.exception.ElementAlreadyExistsException;
 import com.desafiofinal.praticafinal.model.Seller;
 import com.desafiofinal.praticafinal.repository.ISellerRepo;
-import lombok.val;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
@@ -16,12 +18,10 @@ public class SellerImplService implements ISellerService{
 
     @Override
     public Seller saveSeller(Seller seller) {
-        try{
-            val sellerSaved = repo.save(seller);
-            return sellerSaved;
+        Optional<Seller> foundSeller = repo.findById(seller.getId());
+        if(foundSeller.isPresent()){
+            throw new ElementAlreadyExistsException("Seller already exists");
         }
-       catch (Exception e){
-            throw new Error("Desculpe, não foi possível realizar a sua solicitação", e.getCause());
-       }
+        return repo.save(seller);
     }
 }
