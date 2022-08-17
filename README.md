@@ -3,7 +3,7 @@ eWallet provides a REST API that allows you to register a credit card for an exi
 access the limits of an already created credit card, buy an existing and valid cart, 
 access a buyer's credit cards and pay a credit card.
 
-- [REQUIREMENT 6]()
+- [REQUIREMENT 6](https://docs.google.com/document/d/1-nVFp7ijRl6yHUWIos8oNRI4qhW0ZN90/edit?usp=sharing&ouid=106995492824829831096&rtpof=true&sd=true)
 
 ### - Summary:
 - [Classes](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/tree/develop#--classes:~:text=%2D-,Classes,-%3A)
@@ -42,7 +42,7 @@ access a buyer's credit cards and pay a credit card.
 | `GET`  | /api/v1/credit-card/limits/{cardId}      | return a String with limitTotal and limitAvailable from a credit card                                                                           | ml-e-wallet-06 |
 | `GET`  | /api/v1/credit-card/bill/{cardNumber}    | returns a collection of carts that were purchased by this credit card                                                                           | ml-e-wallet-06 |
 | `GET`  | /api/v1/credit-card/wallet/{buyerId}     | returns a valid buyer's card wallet                                                                                                             | ml-e-wallet-06 |
-| `PUT`  | /buy_cart/{cartId}/{cardNumber}          | uy an existing cart open, passing its status to finished and debiting the total value of this cart from the available limit of the credit card  | ml-e-wallet-06 |
+| `PUT`  | /buy_cart/{cartId}/{cardNumber}          | buy an existing cart open, passing its status to finished and debiting the total value of this cart from the available limit of the credit card | ml-e-wallet-06 |
 | `PUT`  | /update_status/{cardNumber}              | changes the status of the credit card from the card number                                                                                      | ml-e-wallet-06 |
 
 #### Payment Routes - [PaymentController](https://github.com/MarinaRuana/projeto-integrador-requisito-individual/blob/develop/src/main/java/com/desafiofinal/praticafinal/controller/PaymentController.java)
