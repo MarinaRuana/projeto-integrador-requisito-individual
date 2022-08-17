@@ -64,7 +64,7 @@ access a buyer's credit cards and pay a credit card.
 **SQL query to populate the database with items needed for testing:**
 ```
 INSERT INTO seller (id, seller_name) VALUES ('1', 'Marina');
-INSERT INTO buyer (buyer_id, buyer_name) VALUES ('1', 'Yago');
+INSERT INTO buyer (buyer_id, buyer_name) VALUES ('1', 'Marina');
 INSERT INTO sector(sector_id, capacity, category, max_capacity) VALUES ('1', '10', 'FF', '1');
 INSERT INTO product(id, bulk, price, product_name, id_seller, validate_date) VALUES ('1', '1', '1', '1', '1', '2022-09-01');
 INSERT INTO product (id, bulk, price, product_name,id_seller, validate_date) VALUES ('2', '10', '2', '6','1','2022-07-30');
